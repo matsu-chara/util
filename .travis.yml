@@ -29,20 +29,27 @@ scala:
 
 jdk:
   - oraclejdk8
-
-notifications:
-  slack:
-    secure: BFX2aB0sq5cMxmxlWIwgHwJOjI5W6WBn3YSPqHYYz6VAK6fzlX2VUKsfyQJTUnqMYox/0qGzPUB4TFhVMH3c78ocNZNj/9tPOPLkMfHjAqobnq/89+hp4Q6fmWCMKVAGTzVNq83OCykYkzITcYWxo0Pyc2eguW6tHaHIgqnbCRY=
-    on_failure: change
-    on_success: change
+  - openjdk11
 
 before_script:
   - unset SBT_OPTS # default $SBT_OPTS is irrelevant to sbt launcher
 
 script:
-  - travis_retry ./sbt ++$TRAVIS_SCALA_VERSION clean coverage test coverageReport
-  - if [[ "$TRAVIS_SCALA_VERSION" == 2.11* ]]; then travis_retry ./sbt ++$TRAVIS_SCALA_VERSION "project util-intellij" coverage test coverageReport; fi
+  - travis_retry ./sbt ++$TRAVIS_SCALA_VERSION clean test
+  - if [[ "$TRAVIS_SCALA_VERSION" == 2.11* ]]; then travis_retry ./sbt ++$TRAVIS_SCALA_VERSION "project util-intellij" test; fi
 
-after_success:
-  - ./sbt ++$TRAVIS_SCALA_VERSION coverageAggregate
-  - bash <(curl -s https://codecov.io/bash)
+# matrix:
+#   include:
+#   - scala: 2.12.8
+#     jdk: openjdk11
+#     env: TEST_PROJECT="rootJVM"
+#   - scala: 2.11.12
+#     jdk: oraclejdk8
+#     env: SCALA_NATIVE
+#     sudo: required
+#     before_install:
+#     - curl https://raw.githubusercontent.com/scala-native/scala-native/master/scripts/travis_setup.sh | bash -
+#     script:
+#     - ./sbt "++$TRAVIS_SCALA_VERSION!" nativeTest/run nativeTest/publishLocal
+#     - if [[ "${TRAVIS_BRANCH}" == "series/7.3.x" && "${TRAVIS_EVENT_TYPE}" == "push" && "${TRAVIS_REPO_SLUG}" == "scalaz/scalaz" ]];
+#       then sbt "++${TRAVIS_SCALA_VERSION}!" setVersionUseDynver coreNative/publish effectNative/publish iterateeNative/pub
