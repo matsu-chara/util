@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 sudo: required
 
 language: scala
@@ -37,19 +37,3 @@ before_script:
 script:
   - travis_retry ./sbt ++$TRAVIS_SCALA_VERSION clean test
   - if [[ "$TRAVIS_SCALA_VERSION" == 2.11* ]]; then travis_retry ./sbt ++$TRAVIS_SCALA_VERSION "project util-intellij" test; fi
-
-# matrix:
-#   include:
-#   - scala: 2.12.8
-#     jdk: openjdk11
-#     env: TEST_PROJECT="rootJVM"
-#   - scala: 2.11.12
-#     jdk: oraclejdk8
-#     env: SCALA_NATIVE
-#     sudo: required
-#     before_install:
-#     - curl https://raw.githubusercontent.com/scala-native/scala-native/master/scripts/travis_setup.sh | bash -
-#     script:
-#     - ./sbt "++$TRAVIS_SCALA_VERSION!" nativeTest/run nativeTest/publishLocal
-#     - if [[ "${TRAVIS_BRANCH}" == "series/7.3.x" && "${TRAVIS_EVENT_TYPE}" == "push" && "${TRAVIS_REPO_SLUG}" == "scalaz/scalaz" ]];
-#       then sbt "++${TRAVIS_SCALA_VERSION}!" setVersionUseDynver coreNative/publish effectNative/publish iterateeNative/pub
