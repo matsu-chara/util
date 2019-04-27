@@ -42,7 +42,7 @@ val baseSettings = Seq(
     "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
 
   scalacOptions := Seq(
-    "-target:jvm-1.8",
+//    "-target:jvm-1.8",
     "-unchecked",
     "-deprecation",
     "-feature",
@@ -53,8 +53,8 @@ val baseSettings = Seq(
 
   // Note: Use -Xlint rather than -Xlint:unchecked when TestThriftStructure
   // warnings are resolved
-  javacOptions ++= Seq("-Xlint:unchecked", "-source", "1.8", "-target", "1.8"),
-  javacOptions in doc := Seq("-source", "1.8"),
+//  javacOptions ++= Seq("-Xlint:unchecked", "-source", "1.8", "-target", "1.8"),
+//  javacOptions in doc := Seq("-source", "1.8"),
 
   // -a: print stack traces for failing asserts
   testOptions += Tests.Argument(TestFrameworks.JUnit, "-a"),

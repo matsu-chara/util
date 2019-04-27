@@ -1,4 +1,3 @@
-dist: xenial
 sudo: required
 
 language: scala
@@ -23,17 +22,24 @@ before_cache:
   - find $HOME/.ivy2/cache  -name "ivydata-*.properties" -delete
   - find $HOME/.sbt         -name "*.lock"               -delete
 
-scala:
-  - 2.11.12
-  - 2.12.8
-
-jdk:
-  - oraclejdk8
-  - openjdk11
-
 before_script:
   - unset SBT_OPTS # default $SBT_OPTS is irrelevant to sbt launcher
 
 script:
-  - travis_retry ./sbt ++$TRAVIS_SCALA_VERSION clean test
-  - if [[ "$TRAVIS_SCALA_VERSION" == 2.11* ]]; then travis_retry ./sbt ++$TRAVIS_SCALA_VERSION "project util-intellij" test; fi
+  - ./sbt ++$TRAVIS_SCALA_VERSION clean test
+  # - if [[ "$TRAVIS_SCALA_VERSION" == 2.11* ]]; then ./sbt ++$TRAVIS_SCALA_VERSION "project util-intellij" test; fi
+
+matrix:
+  include:
+  - scala: 2.12.8
+    jdk: openjdk11
+    dist: xenial
+  - scala: 2.12.8
+    jdk: openjdk8
+    dist: trusty
+  # - scala: 2.11.12
+  #   jdk: oraclejdk8
+  #   dist: trusty
+  # - scala: 2.11.12
+  #   jdk: oraclejdk11
+  #   dist: xenial
