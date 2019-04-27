@@ -35,6 +35,12 @@ matrix:
     jdk: openjdk11
     dist: xenial
   - scala: 2.12.8
+    jdk: openjdk10
+    dist: xenial
+  - scala: 2.12.8
+    jdk: openjdk9
+    dist: trusty
+  - scala: 2.12.8
     jdk: openjdk8
     dist: trusty
   # - scala: 2.11.12
