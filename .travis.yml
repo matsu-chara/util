@@ -32,17 +32,23 @@ script:
 matrix:
   include:
   - scala: 2.12.8
-    jdk: openjdk11
+    jdk: oraclejdk11
     dist: xenial
   - scala: 2.12.8
-    jdk: openjdk10
-    dist: xenial
-  - scala: 2.12.8
-    jdk: openjdk9
+    jdk: oraclejdk11
     dist: trusty
-  - scala: 2.12.8
-    jdk: openjdk8
-    dist: trusty
+ #  - scala: 2.12.8
+ #    jdk: openjdk11
+ #    dist: xenial
+ #  - scala: 2.12.8
+ #    jdk: openjdk10
+ #    dist: xenial
+ # - scala: 2.12.8
+ #    jdk: openjdk9
+ #    dist: xenial
+ #  - scala: 2.12.8
+ #    jdk: openjdk8
+ #    dist: trusty
   # - scala: 2.11.12
   #   jdk: oraclejdk8
   #   dist: trusty
